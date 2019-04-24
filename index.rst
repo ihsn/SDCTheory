@@ -12,7 +12,6 @@ Statistical Disclosure Control for Microdata: A Practice Guide
    measure_risk
    anon_methods
    utility
-   sdcMicro
    process
    appendices
    acknowledgements
