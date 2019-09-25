@@ -272,7 +272,8 @@ methods such as perturbative methods might work better.
 
 
 Examples of global recoding
-<<<<<<<<<<<<<<<<<<<<<<<<<<<
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 In this section, we illustrate global recoding with two examples, one
 categorical variable and one continuous variable.
 Assume that the the variable “sizeRes”, size of the residence area, has
@@ -451,7 +452,7 @@ data users. In this example we find “gender” more important than
    ----------  -------------------------------  ------------------------------------------- 
      ID         Gender    Region    Education    Gender    Region    Education
    ==========  ========  ========  ===========  ========  ========  =======================
-     1          female    rural     higher       female     rural    NA/missing [#foot38]_
+     1          female    rural     higher       female     rural    **missing**
      2          male      rural     higher       male       rural    higher     
      3          male      rural     higher       male       rural    higher     
      4          male      rural     higher       male       rural    higher     
@@ -468,106 +469,71 @@ might be to first recode to produce fewer categories (e.g., recoding age
 in 10-year intervals or income in quintiles). Always keep in mind,
 though, what effect any recoding will have on the utility of the data.
 
-The *sdcMicro* package includes two functions for local suppression:
-localSuppression() and localSupp(). The function localSuppression() is
-most commonly used and allows the use of suppression on specified
-quasi-identifiers to achieve a certain level of :math:`k`-anonymity for
-these quasi-identifiers. The algorithm used seeks to minimize the total
+Several different algorithms can be used to determine which values
+to suppress. One common algorithm determines an optimal suppression
+pattern to achieve on a specified set of
+quasi-identifiers a certain level of :math:`k`-anonymity for
+these quasi-identifiers. This algorithm used seeks to minimize the total
 number of suppressions while achieving the required :math:`k`-anonymity
-threshold. By default, the algorithm is more likely to suppress values
+threshold. By default, this algorithm is more likely to suppress values
 of variables with many different categories or values, and less likely
 to suppress variables with fewer categories. For example, the values of
 a geographical variable, with 12 different areas, are more likely to be
 suppressed than the values of the variable “gender”, which has typically
 only two categories. If variables with many different values are
-important for data utility and suppression is not desired for them, it
-is possible to rank variables by importance in the localSuppression()
-function and thus specify the order in which the algorithm will seek to
+important for data utility and suppression is not desired for them, one can
+rank variables by importance and thus specify the order in which the algorithm will seek to
 suppress values within quasi-identifiers to achieve :math:`k`-anonymity.
 The algorithm seeks to apply fewer suppressions to variables of high
 importance than to variables with lower importance. Nevertheless,
 suppressions in the variables with high importance might be inevitable
 to achieve the required level of :math:`k`-anonymity.
 
-In :numref:`code57`, local suppression is applied to achieve the
+
+Example of local suppression
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In this example local suppression is applied to achieve the
 :math:`k`-anonymity threshold of 5 on the quasi-identifiers “gender”,
-“region”, “religion”, “age” and “ethnicity” [#foot39]_.
+“region”, “religion”, “age” and “ethnicity”.
 Without ranking the importance of the variables, the value of the
 variable “age” is more likely to be suppressed, since this is the
 variable with most categories. The variable “age” has 10 categories
 after recoding. The variable “gender” is least likely to be suppressed,
 since it has only two different values: ‘male’ and ‘female’. The other
 variables have 4 (“sizeRes”), 2 (“region”), and 8 (“ethnicity”)
-categories. After applying the localSuppression() function, we display
-the number of suppressions per variable with the built-in print()
-function with the option ‘ls’ for the local suppression output. As
-expected, the variable “age” has most suppressions (80). In fact, only
+categories. The standard local suppression algorithm suppresses
+most values in the variable “age” (80). In fact, only
 the variable “ethnicity” of the other variables also needed suppressions
 (8) to achieve the :math:`k`-anonymity threshold of 5. The variable
 “ethnicity” is the variable with the second highest number of
-suppressions. Subsequently, we undo and redo local suppression on the
-same data and reduce the number of suppressions on “age” by specifying
-the importance vector with high importance (little suppression) on the
-quasi-identifier “age”. We also assign importance to the variable
-“gender”. This is done by specifying an importance vector. The values in
-the importance vector can range from 1 to :math:`k`, the number of
-quasi-identifiers. In our example :math:`k` is equal to 5. Variables
-with lower values in the importance vectors have high importance and,
-when possible, receive fewer suppressions than variables with higher
-values.
+suppressions. 
 
-To assign high importance to the variables “age” and “gender”, we
-specify the importance vector as c(5, 1, 1, 5, 5), with the order
-according to the order of the specified variables in the *sdcMicro*
-object. The effect is clear: there are no suppressions in the variables
-“age” and “gender”. For that, the other variables, especially “sizeRes”
-and “ethnicity”, received many more suppressions. The total number of
+
+The variable “age” is typically an important variable. Therefore, 
+if possible, we would like to reduce the number of suppressions 
+on “age” by specifying the order of importance of the 
+variables and giving high importance (little suppression) to the
+quasi-identifier “age”. We also assign importance to the variable
+“gender”. The effect is clear: there are no suppressions in the variables
+“age” and “gender”. For that, the other variables, especially “sizeRes” (87)
+and “ethnicity” (62), received many more suppressions. The total number of
 suppressed values has increased from 88 to 166. 
 
 .. NOTE::
 	Fewer suppressions in one variable increase the number of necessary
-	suppressions in other variables (cf. :numref:`code57`). 
+	suppressions in other variables. 
 
-Generally, the total number of suppressed values needed to achieve the required level
-of :math:`k`-anonymity increases when specifying an importance vector,
-since the importance vector prevents to use the optimal suppression
-pattern. The importance vector should be specified only in cases where
+Generally, the total number of suppressed values needed to achieve the 
+required level
+of :math:`k`-anonymity increases when specifying the order of
+importance, since this prevents to use the optimal suppression
+pattern. The importance of variables should be specified only in cases where
 the variables with many categories play an important role in data
 utility for the data users [#foot40]_.
 
-.. code-block:: R
-   :linenos:
-   :caption: Application of local suppression with and without importance vector
-   :name: code57
-
-    # local suppression without importance vector
-    sdcInitial <- localSuppression(sdcInitial, k = 5)
-
-    print(sdcInitial, 'ls')
-    ##     KeyVar | Suppressions (#) | Suppressions (%)
-    ##    sizeRes |                0 |            0.000
-    ##        age |               80 |            3.200
-    ##     gender |                0 |            0.000
-    ##     region |                0 |            0.000
-    ##  ethnicity |                8 |            0.320
-
-    # Undoing the supressions
-    sdcInitial <- undolast(sdcInitial)
-
-    # Local suppression with importance vector to avoid suppressions 
-    # in the first (gender) and fourth (age) variables
-    sdcInitial <- localSuppression(sdcInitial, importance = c(5, 1, 1, 5, 5), k = 5)
-    print(sdcInitial, 'ls')
-    ##     KeyVar | Suppressions (#) | Suppressions (%)
-    ##    sizeRes |               87 |            3.480
-    ##        age |                0 |            0.000
-    ##     gender |                0 |            0.000
-    ##     region |               17 |            0.680
-    ##  ethnicity |               62 |            2.480
-
-
 :numref:`fig55` demonstrates the effect of the required :math:`k`-anonymity
-threshold and the importance vector on the data utility by using several
+threshold and the order of importance on the data utility by using several
 labor market-related indicators from an I2D2 [#foot41]_
 dataset before and after anonymization. :numref:`fig55` displays the relative
 changes as a percentage of the initial value after re-computing the
@@ -611,8 +577,9 @@ higher thresholds; 4) the type of variable; 5) the sample weights and
 sample size; and 6) the release type (see the Section `Release Types <SDC_intro.html#Release Types>`__ ). 
 Commonly applied levels for the :math:`k`-anonymity threshold are 3 and 5.
 
-:numref:`tab55` illustrates the influence of the importance vector and
-:math:`k`-anonymity threshold on the running time, global risk after
+:numref:`tab55` illustrates the influence of specifying the order of
+importance and the 
+:math:`k`-anonymity threshold on the global risk after
 suppression and total number of suppressions required to achieve this
 :math:`k`-anonymity threshold. The dataset contains about 63,000
 individuals. The higher the :math:`k`-anonymity threshold, the more
@@ -629,36 +596,36 @@ number of suppressions and a longer computation time.
 
 .. _tab55:
 
-.. table:: How importance vectors and :math:`k`-anonymity thresholds affect running time and total number of suppressions
+.. table:: How the order of importance and the :math:`k`-anonymity threshold affect total number of suppressions
    :widths: auto
    :align: center
 
-   ==============  ===================  ===================  ==============  ==============  ===================  
-     Threshold      Importance           Total number of      Threshold       Importance      Total number of
-     k-anonimity    vector               suppressions         k-anonimity     vector          suppressions
-   ==============  ===================  ===================  ==============  ==============  ===================  
-    3               none (default)        6,676                 5,387            293.0             11.8    
-    3               employment status     7,254                 5,512            356.5             13.1    
-    3               age variable          8,175                    60            224.6             4.5     
-    5               none (default)        9,971                 7,894            164.6             8.5     
-    5               employment status    11,668                 8,469            217.0             10.2    
-    5               age variable         13,368                    58            123.1             3.8     
-   ==============  ===================  ===================  ==============  ==============  ===================  
+   ==============  ===================  ===================  ==============  ===================  
+     Threshold      Importance           Total number of      Threshold       Total number of
+     k-anonimity    vector               suppressions         k-anonimity     suppressions
+   ==============  ===================  ===================  ==============  ===================  
+    3               none (default)        6,676                 5,387              11.8    
+    3               employment status     7,254                 5,512              13.1    
+    3               age variable          8,175                    60              4.5     
+    5               none (default)        9,971                 7,894              8.5     
+    5               employment status    11,668                 8,469              10.2    
+    5               age variable         13,368                    58              3.8     
+   ==============  ===================  ===================  ==============  ===================  
 
 In cases where there are a large number of quasi-identifiers and the
 variables have many categories, the number of possible combinations
 increases rapidly (see :math:`k`-anonymity). If the number of variables
 and categories is very large, the computation time of the
-localSuppression() algorithm can be very long (see the Section 
-`Computation time <sdcMicro.html#Computation time>`__ on
-computation time). Also, the algorithm may not reach a solution, or may
-come to a solution that will not meet the specified level of
-:math:`k`-anonymity. Therefore, reducing the number of quasi-identifiers
+local suppression algorithms can be very long. 
+Therefore, reducing the number of quasi-identifiers
 and/or categories before applying local suppression is recommended. This
 can be done by recoding variables or selecting some variables for other
 (perturbative) methods, such as PRAM. This is to ensure that the number
 of suppressions is limited and hence the loss of data is limited to only
 those values that pose most risk.
+
+All-m approach
+^^^^^^^^^^^^^^
 
 In some datasets, it might prove difficult to reduce the number of
 quasi-identifiers and even after reducing the number of categories by
@@ -684,34 +651,6 @@ time at the cost of a higher total number of suppressions.
 	
 Therefore, it is important to evaluate the risk measures carefully after using the
 all-\ :math:`m` approach.
-
-In *sdcMicro* the all-\ :math:`m` approach is implemented in the ‘combs’
-argument in the localSuppression() function. The value for :math:`m` is
-specified in the ‘combs’ argument and can also take on several values.
-The subsets of different sizes are then used sequentially in the local
-suppression algorithm. For example if ‘combs’ is set to c(3,9), first
-all subsets of size 3 are considered and subsequently all subsets of
-size 9. Setting the last value in the combs argument to the total number
-of key variables guarantees the achievement of :math:`k`-anonymity for
-the complete dataset. It is also possible to specify different values
-for :math:`k` for each subset size in the ‘k’ argument. If we would want to
-achieve 5-anonimity on the subsets of size 3 and subsequently
-3-anonimity on the subsets of size 9, we would set the ‘k’ argument to
-c(5,3). :numref:`code58` illustrates the use of the all-\ :math:`m` approach
-in *sdcMicro*.
-
-.. code-block:: R
-   :linenos:
-   :caption:  The all-\ :math:`m` approach in sdcMicro
-   :name: code58
-   
-    # Apply k-anonymity with threshold 5 to all subsets of two key variables and 
-    # subsequently to the complete dataset
-    sdcInitial <- localSuppression(sdcInitial, k = 5, combs = c(2, 5))
-    # Apply k-anonymity with threshold 5 to all subsets of three key variables and 
-    # subsequently with threshold 2 to the complete dataset
-    sdcInitial <- localSuppression(sdcInitial, k = c(3, 5), combs = c(5, 2))
-
 
 :numref:`tab56` presents the results of using the all-\ :math:`m` approach of
 a test dataset with 9 key variables and 4,000 records. The table shows
@@ -2047,19 +1986,6 @@ few examples are:
    minus the small number. For example, using this for income, we would
    have an interval (9999, 19999] and the value 9999.5 would be
    misclassified as belonging to the interval [10000, 19999].
-
-.. [#foot37]
-   In *R* suppressed values are recoded NA, the standard missing value
-   code.
-
-.. [#foot38]
-   In *R* suppressed values are recoded NA, the standard missing value
-   code.
-
-.. [#foot39]
-   Here the *sdcMicro* object “sdcIntial“ contains a dataset with 2,500
-   individuals and 103 variables. We selected five quasi-identifiers:
-   “sizeRes”, “age”, “gender”, “region”, and “ethnicity”.
 
 .. [#foot40]
    This can be assessed with utility measures.
