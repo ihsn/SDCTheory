@@ -1,12 +1,11 @@
 Anonymization Methods
 =====================
 
-This Section describes the SDC methods most commonly used. All methods
-are implementable in *R* by using the *sdcMicro* package. We discuss for
+This Section describes the SDC methods most commonly used. We discuss for
 every method for what type of data the method is suitable, both in terms
 of data characteristics and type of data. Furthermore, options such as
 specific parameters for each method are discussed as well as their
-impacts. [#foot34]_ These findings are meant as guidance but
+impacts. These findings are meant as guidance but
 should be used with caution, since every dataset has different
 characteristics and our findings may not always address your particular
 dataset. The last three sections are on the
@@ -62,34 +61,32 @@ quasi-identifiers to prevent identity disclosure, whereas top coding a
 quasi-identifier (e.g., income) or perturbing a sensitive variable
 prevent attribute disclosure.
 
-As this practice guide is written around the use of the *sdcMicro*
-package, we discuss only SDC methods that are implemented in the
-*sdcMicro* package or can be easily implemented in *R*. These are the
-most commonly applied methods from the literature and used in most
-agencies experienced in using these methods. :numref:`tab51` gives an overview
-of the SDC methods discussed in this guide, their classification,
-types of data to which they are applicable and their function names in
-the *sdcMicro* package.
+In this guide we discuss the most commonly applied methods from the literature 
+and used in most agencies experienced in using these methods. 
+All discussed methods are implemented in the *sdcMicro* package.
+:numref:`tab51` gives an overview
+of the SDC methods discussed in this guide, their classification and
+types of data to which they are applicable.
 
 .. _tab51:
 
-.. table:: SDC methods and corresponding functions in *sdcMicro*
+.. table:: Overview of SDC methods
    :widths: auto
    :align: center
 
-   =======================  ================================  ============================  ==============================================================================================================
-    Method                   Classification of SDC method      Data Type                     Function in sdcMicro                                                                           
-   =======================  ================================  ============================  ==============================================================================================================
-    Global recoding          non-perturbative, determinitic    continuous and categorical    `globalRecode <http://www.rdocumentation.org/packages/sdcMicro/functions/globalrecode/>`_ ,       
-                                                                                             `groupVars <http://www.rdocumentation.org/packages/sdcMicro/functions/groupVars-methods/>`_       
-    Top and bottom coding    non-perturbative, determinitic    continuous and categorical    `topBotCoding <http://www.rdocumentation.org/packages/sdcMicro/functions/topBotCoding/>`_         
-    Local suppression        non-perturbative, determinitic    categorical                   `localSuppression <http://www.rdocumentation.org/packages/sdcMicro/functions/localSuppression/>`_, localSupp
-    PRAM                     perturbative, probabilistic       categorical                   `pram <http://www.rdocumentation.org/packages/sdcMicro/functions/pram/>`_                         
-    Micro aggregation        perturbative, probabilistic       continuous                    `microaggregation <http://www.rdocumentation.org/packages/sdcMicro/functions/microaggregation/>`_ 
-    Noise addition           perturbative, probabilistic       continuous                    `addNoise <http://www.rdocumentation.org/packages/sdcMicro/functions/addNoise/>`_                 
-    Shuffling                perturbative, probabilistic       continuous                    `shuffle <http://www.rdocumentation.org/packages/sdcMicro/functions/shuffle/>`_                   
-    Rank swapping            perturbative, probabilistic       continuous                    `rankSwap <http://www.rdocumentation.org/packages/sdcMicro/functions/rankSwap/>`_                 
-   =======================  ================================  ============================  ==============================================================================================================
+   =======================  ================================  ============================  
+    Method                   Classification of SDC method      Data Type                    
+   =======================  ================================  ============================  
+    Global recoding          non-perturbative, determinitic    continuous and categorical   
+                                                                                            
+    Top and bottom coding    non-perturbative, determinitic    continuous and categorical   
+    Local suppression        non-perturbative, determinitic    categorical                  
+    PRAM                     perturbative, probabilistic       categorical                  
+    Micro aggregation        perturbative, probabilistic       continuous                   
+    Noise addition           perturbative, probabilistic       continuous                   
+    Shuffling                perturbative, probabilistic       continuous                   
+    Rank swapping            perturbative, probabilistic       continuous                   
+   =======================  ================================  ============================  
 
 Non-perturbative methods
 ------------------------
@@ -273,60 +270,16 @@ the data will not harm most data users. If the users need information at
 a more detailed level, then recoding is not appropriate and other
 methods such as perturbative methods might work better.
 
-In *sdcMicro* there are different options for global recoding. In the
-following paragraphs, we give examples of global recoding with the
-functions groupVars() and globalRecode(). The function groupVars() is
-generally used for categorical variables and the function globalRecode()
-for continuous variables. Finally, we discuss the use of rounding to
-reduce the detail in continuous variables.
 
-Recoding a categorical variable using the sdcMicro function groupVars()
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-Assume that an object of class *sdcMicro* was created, which is called
-“sdcInitial” [#foot35]_ (see the Section 
-`Objects of class sdcMicroObj <sdcMicro.html#Objects of class sdcMicroObj>`__)
-how to create objects of class *sdcMicro*). In :numref:`code51`, the variable “sizeRes” has
+Examples of global recoding
+<<<<<<<<<<<<<<<<<<<<<<<<<<<
+In this section, we illustrate global recoding with two examples, one
+categorical variable and one continuous variable.
+Assume that the the variable “sizeRes”, size of the residence area, has
 four different categories: ‘capital, large city’, ‘small city’, town’,
 and ‘countryside’). The first three are recoded or regrouped as ‘urban’
-and the category ‘countryside’ is renamed ‘rural’. In the function
-arguments, we specify the categories to be grouped (before) and the
-names of the categories after recoding (after). It is important that the
-vectors “before” and “after” have the same length. Therefore, we have to
-repeat ‘urban’ three times in the “after” vector to match the three
-different values that are recoded to ‘urban’. 
-
-.. NOTE::
- 	The function groupVars() works only for variables of class factor.
-
-We refer to the Section `Classes in R <sdcMicro.html#Classes in R>`__
-on how to change the class of a variable.
-
-.. code-block:: R
-   :linenos:
-   :caption:  Using the sdcMicro function groupVars() to recode a categorical variable
-   :name: code51
-
-   # Frequencies of sizeRes before recoding
-   table(sdcInitial@manipKeyVars$sizeRes)
-   ## capital, large city          small city             town       countryside
-   ##                 686                 310              146              1358
-
-   # Recode urban
-   sdcInitial  <-  groupVars(obj = sdcInitial, var = c("sizeRes"), 
-                             before = c("capital, large city", "small city", "town"), 
-                             after = c("urban", "urban", "urban"))
-
-   # Recode rural
-   sdcInitial  <-  groupVars(obj = sdcInitial, var = c("sizeRes"), 
-                             before = c("countryside"), after = c("rural"))
-
-   # Frequencies of sizeRes before recoding
-   table(sdcInitial@manipKeyVars$sizeRes)
-   ## urban rural
-   ##  1142  1358
-
-:numref:`fig51` illustrates the effect of recoding the variable “sizeRes” and
+and the category ‘countryside’ is renamed ‘rural’. :numref:`fig51` 
+illustrates the effect of recoding the variable “sizeRes” and
 show respectively the frequency counts before and after recoding. We see
 that the number of categories has reduced from 4 to 2 and the small
 categories (‘small city’ and ‘town’) have disappeared.
@@ -338,38 +291,14 @@ categories (‘small city’ and ‘town’) have disappeared.
    
    Effect of recoding – frequency counts before and after recoding
 
-Recoding a continuous variable using the sdcMicro function: globalRecode()
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-Global recoding of numerical (continuous) variables can be achieved in
-*sdcMicro* by using the function globalRecode(), which allows specifying
-a vector with the break points between the intervals. Recoding a
-continuous variable changes it into a categorical variable. One can
-additionally specify a vector of labels for the new categories. By
-default, the labels are the intervals, e.g., “(0, 10]”. :numref:`code52`
-shows how to recode the variable age in 10-year intervals for age values
-between 0 and 100. 
-
-.. NOTE::
-    Values that fall outside the specified intervals are assigned a missing value (NA).
-    
-Therefore, the intervals should cover the entire value range of the variable.
-
-.. code-block:: R
-   :linenos:
-   :caption: Using the *sdcMicro* function globalRecode() to recode a continuous variable (age)
-   :name: code52
-   
-   sdcInitial <- globalRecode(sdcInitial, column = c('age'), 
-                              breaks = 10 * c(0:10))
-
-   # Frequencies of age after recoding
-   table(sdcInitial@manipKeyVars$age)
-   ##   (0,10]  (10,20]  (20,30]  (30,40]  (40,50]  (50,60]  (60,70]  (70,80]  (80,90]  (90,100]
-   ##      462      483      344      368      294      214      172       94       26         3
+we discuss the use of rounding to reduce the detail in continuous variables.
 
 
-:numref:`fig52` shows the effect of recoding the variable “age”.
+Global recoding of a numerical (continuous) variables changes it 
+into a categorical variable. The intervals should cover the entire 
+value range of the variable. :numref:`fig52` shows the effect of 
+recoding the variable “age”, age in years, in ten-year intervals.
 
 .. _fig52:
 
@@ -387,20 +316,7 @@ frequencies. We chose the intervals by respecting relevant school age
 and employment age values (e.g., retirement age is 65 in this example)
 such that the data can still be used for common research on education
 and employment. :numref:`fig53` shows the effect of recoding the variable
-“age”.
-
-.. code-block:: R
-   :linenos:
-   :caption: Using globalRecode() to create intervals of unequal width
-   :name: code53
- 
-   sdcInitial <- globalRecode(sdcInitial, column = c('age'), 
-                              breaks = c(0, 5, 11, 17, 21, 25, 49, 65, 100))
-
-   # Frequencies of age after recoding
-   table(sdcInitial@manipKeyVars$age)
-   ##    (0,5]   (5,11]  (11,17]  (17,21]  (21,25]  (25,49]  (49,65] (65,100]
-   ##      192      317      332      134      142      808      350      185
+“age” after adjusting the intervals.
 
 .. _fig53:
 
@@ -409,78 +325,6 @@ and employment. :numref:`fig53` shows the effect of recoding the variable
    
    Age variable before and after recoding
    
-Caution about using the globalRecode() function in *sdcMicro*: In the
-current implementation of *sdcMicro*, the intervals are defined as
-**left-open**. In mathematical terms, this means that, in our example,
-age 0 is excluded from the specified intervals. In interval notation,
-this is denoted as (0, 5] (as in :math:`x`-axis labels in :numref:`fig52` and 
-:numref:`fig53` for the recoded variable). The interval (0, 5] is
-interpreted as from 0 to 5 and does not include 0, but does include 5.
-*R* recodes values that are not contained in any of the intervals as
-missing (NA). This implementation would set in our example all age
-values 0 (children under 1 year) to missing and could potentially mean a
-large data loss. The globalRecode() function allows only constructing
-intervals, which are left-open. This may not be a desirable result and
-the loss of the zero ages from the data is clearly problematic for a
-real-world dataset.
-
-To construct **right-open** intervals, e.g., in our example, for age
-intervals [0,14), [15, 65), [66, 100), we present two alternatives for
-global recoding:
-
--  A work-around for semi-continuous variables [#foot36]_
-   that would allow for the globalRecode() to be used would be
-   subtracting a small number from the boundary intervals, thus allowing
-   the desired intervals to be created. In the following example,
-   subtracting 0.1 from each interval forces globalRecode() to include 0
-   in the lowest interval and allow for breaks where we want them. We
-   set the upper interval boundary to be larger than the maximum value
-   for the “age” variable. We can use the option *labels* to define
-   clear labels for the new categories. This is illustrated in :numref:`code54`.
-
-.. code-block:: R
-   :linenos:
-   :caption: Constructing right-open intervals for semi-continuous variables using built-in *sdcMicro* function globalRecode()
-   :name: code54
-
-   sdcInitial <- globalRecode(sdcInitial, column = c('age'), 
-                              breaks = c(-0.1, 14.9, 64.9, 99.9), 
-                              labels = c('[0,15)', '[15,65)', '[65,100)'))
-
--  It is also possible to use *R* code to manually recode the variables
-   without using *sdcMicro* functions. When using the built-in
-   *sdcMicro* functions, the change in risk after recoding is
-   automatically recalculated, but if recoded manually it is not. In
-   this case, we need to take an extra step and recalculate the risk
-   after manually changing the variables in the *sdcMicro* object. This
-   approach is also valid for continuous variables and is illustrated in
-   :numref:`code55`.
-
-
-.. code-block:: R
-   :linenos:
-   :caption: Constructing intervals for semi-continuous and continuous variables using manual recoding in *R*
-   :name: code55
-
-   # Group age 0-14
-   sdcInitial@manipKeyVars$age[sdcInitial@manipKeyVars$age >= 0 &
-   sdcInitial@manipKeyVars$age < 15] <- 0
- 
-   # Group age 15-64
-   sdcInitial@manipKeyVars$age[sdcInitial@manipKeyVars$age >= 15 &
-   sdcInitial@manipKeyVars$age < 65] <- 1
- 
-   # Group age 65-100
-   sdcInitial@manipKeyVars$age[sdcInitial@manipKeyVars$age >= 65 &
-   sdcInitial@manipKeyVars$age <= 100] <- 2
- 
-   # Add labels for the new values
-   sdcInitial@manipKeyVars$age <-ordered(sdcInitial@manipKeyVars$age,
-   levels = c(0,1,2), labels = c("0-14", "15-64", "65-100"))
- 
-   # Recalculate risk after manual manipulation
-   sdcInitial <- calcRisks(sdcInitial)
-
 
 Top and bottom coding
 ^^^^^^^^^^^^^^^^^^^^^
@@ -2216,10 +2060,6 @@ few examples are:
 	minimum size of a geographical area is 100,000). 
 	Both files have been anonymized by using data swapping, top coding, perturbation and reducing
 	detail by recoding. [#foot57]_
-
-.. [#foot34]
-   We also show code examples in *R,* which are drawn from findings we
-   gathered by applying these methods to a large collection of datasets.
 
 .. [#foot35]
    Here the *sdcMicro* object “sdcIntial“ contains a dataset with 2,500

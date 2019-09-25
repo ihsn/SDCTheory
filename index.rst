@@ -1,4 +1,4 @@
-Statistical Disclosure Control for Microdata: A Practice Guide
+Statistical Disclosure Control for Microdata: A Theory Guide
 ===========================================================================
 
 .. toctree::
@@ -12,7 +12,6 @@ Statistical Disclosure Control for Microdata: A Practice Guide
    measure_risk
    anon_methods
    utility
-   sdcMicro
    process
    appendices
    acknowledgements

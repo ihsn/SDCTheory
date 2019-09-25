@@ -53,7 +53,7 @@ combined with a lack of experience in using the tools and methods makes
 it difficult for many agencies to implement optimal solutions, i.e.,
 solutions that meet their obligations towards both privacy protection
 and the release of data useful for policy monitoring and evaluation.
-This practice guide attempts to fill this critical gap by:
+This guide attempts to fill this critical gap by:
 
 (i)  consolidating knowledge gained at the World Bank through
      experiments conducted during a large-scale evaluation of
@@ -79,6 +79,8 @@ comply with their existing data release policies.
 The guide seeks to provide practical steps to those agencies that want
 to unlock access to their data in a safe way and ensure that the data
 remain fit for purpose.
+
+
 
 Building a knowledge base
 ----------------------------
@@ -141,11 +143,17 @@ their strengths and weaknesses. It should also provide enough detail for
 readers to use an existing software solution to implement the methods or
 program the methods in statistical software of their choice.
 
-For the examples in this guide, we use the open source and free package
-for SDC called *sdcMicro* as well as the statistical software *R*.
+
+Statistical software tools for technical implementation
+-------------------------------------------------------
+There are several software solutions for the technical implementation of SDC. The two 
+are widely used in statistics offices in the European Union and implement
+many of the methods discussed in this guide are *R* package *sdcMicro* [#foot14]_ 
+and the application μ-ARGUS [#foot15]_ developed by Statistics Netherlands. 
+
 *sdcMicro* is an add-on package to the statistical software *R*. The
 package was developed and is maintained by Matthias Templ, Alexander
-Kowarik and Bernhard Meindl. [#foot14]_ The statistical software *R* and the *sdcMicro*
+Kowarik and Bernhard Meindl. The statistical software *R* and the *sdcMicro*
 package, as well as any other packages needed for the SDC process, are
 freely available from the Comprehensive R Archive Network (CRAN) mirrors
 (http://cran.r-project.org/). The software is available for Linux,
@@ -156,22 +164,14 @@ IHSN, has also provided funding towards the development of the
 *sdcMicro* package to ensure it meets the requirements of the agencies
 we support.
 
-This guide does not provide a review of all other available packages for
-implementing the SDC process. Our concern is more with providing
-practical insight into the application of the methods. We would,
-however, like to highlight one particular other software package that is
-commonly used by agencies: μ-ARGUS [#foot15]_. μ-ARGUS is
-developed by Statistics Netherlands. *sdcMicro* and μ-ARGUS are both
-widely used in statistics offices in the European Union and implement
-many of the same methods.
+*sdcMicro* can be used from *R* command-line
+or by using the integrated GUI *sdcApp* for those not familiar with *R*. This guide
+is accompanied by two technical practice guides both available as Read the Docs documentations:
 
-The user needs some knowledge of *R* to use *sdcMicro*. It is beyond the
-scope of this guide to teach the use of *R*, but we do provide
-throughout the guide code examples on how to implement the necessary
-routines in *R*. [#foot16]_ We also present a number of case
-studies that include the code for the anonymization of a number of demo
-datasets using *R*. Through these case studies, we demonstrate a number
-of approaches to the anonymization process in *R*. [#foot17]_ 
+(i) `Statistical Disclosure Control for Microdata: A Practice Guide <https://sdcpractice.readthedocs.io/en/latest/>`__ for using *sdcMicro* from command-line
+
+(ii) `sdcApp manual <https://sdcappdocs.readthedocs.io/en/latest/>`__ for using the GUI *sdcApp*
+
 
 Outline of this guide
 ------------------------
@@ -186,21 +186,14 @@ This guide is divided into the following main sections:
 (iii) the Sections `Anonymization Methods <anon_methods.html>`__ , `Measuring Risk <measure_risk.html>`__ and `Measuring Utility and Information Loss <utility.html>`__ cover SDC methods, risk and utility measurement.
       The goal here is to provide knowledge that allows the reader to
       independently apply and execute the SDC process. This section is
-      enriched with real examples as well as code snippets from the
-      *sdcMicro* package. The interested reader can also find more
+      enriched with real examples. The interested reader can also find more
       information in the references and recommended readings at the end
       of each section.
 
-(iv)  the Section `SDC with sdcMicro in R: Setting Up Your Data and more <sdcMicro.html>`__ gives an overview of issues encountered when carrying
-      out anonymization with the *sdcMicro* package in *R*, which exceed
-      basic *R* knowledge. This section also includes tips and solutions
-      to some of the common issues and problems that might be
-      encountered when applying SDC methods in *R* with *sdcMicro.*
-
-(v)   the Section `The SDC Process <process.html>`__ provides a step-by-step guide to disclosure control,
+(iv)  the Section `The SDC Process <process.html>`__ provides a step-by-step guide to disclosure control,
       which draws upon the knowledge presented in the previous sections.
 
-(vi)  the Section `Case Studies (Illustrating the SDC Process) <case_studies.html>`__ presents a number of detailed case studies that
+(v)   the Section `Case Studies (Illustrating the SDC Process) <case_studies.html>`__ presents a number of detailed case studies that
       demonstrate the use of the methods, their implementation in
       *sdcMicro* and the process that should be followed to reach the
       optimal risk-utility solution.
@@ -226,15 +219,3 @@ This guide is divided into the following main sections:
 .. [#foot15]
    μ-ARGUS is available at: http://neon.vb.cbs.nl/casc/mu.htm. The
    software was recently ported to open source.
-
-.. [#foot16]
-   There are many free resources for learning *R* available on the web.
-   One place to start would be the CRAN *R* Project page:
-   http://cran.r-project.org/other-docs.html
-
-.. [#foot17]
-   The developers of *sdcMicro* have also developed a graphical user
-   interface (GUI) for the package, which is contained in the *sdcMicro* package available from the CRAN mirrors. The GUI,
-   however, does not implement the full functionality of the *sdcMicro*
-   package and is not discussed in this guide. The GUI can be called after loading sdcMicro by typing sdcApp() at the prompt.
- 
