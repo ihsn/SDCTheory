@@ -1140,9 +1140,9 @@ exception of maybe one last group of remainders. The microaggregated
 dataset is then computed by replacing each record in the original
 dataset by the average values of the group to which it belongs. Equal
 group sizes, however, may not be ideal for data characterized by greater
-variability. The MDAV algorithm is illustrated in :numref:`fig58`.
+variability. The MDAV algorithm is illustrated in :numref:`fig59`.
 
-.. _fig58:
+.. _fig59:
 
 .. figure:: media/image25.png
    :align: center
@@ -1280,27 +1280,6 @@ is too small will lead to insufficient protection, while an
 :math:`\alpha` value that is too high will make the data useless for
 data users.
 
-In *sdcMicro* noise addition is implemented in the function addNoise().
-The algorithm and parameter can be specified as arguments in the
-function addNoise(). Simple noise addition is implemented in the
-function addNoise() with the value “additive” for the argument ‘method’.
-:numref:`code519` shows how to use *sdcMicro* to add uncorrelated noise to
-expenditure variables, where the standard deviation of the added noise
-equals half the standard deviation of the original
-variables. [#foot52]_ Noise is added to all selected
-variables.
-
-.. code-block:: R
-   :linenos:
-   :caption: Uncorrelated noise addition
-   :name: code519
-
-   sdcInitial <- addNoise(obj = sdcInitial, 
-                          variables = c('TOTFOOD', 'TOTHLTH', 'TOTALCH', 'TOTCLTH', 
-                                        'TOTHOUS', 'TOTFURN', 'TOTTRSP', 'TOTCMNQ', 
-                                        'TOTRCRE', 'TOTEDUC', 'TOTHOTL', 'TOTMISC'), 
-                          noise = 0.5, method = "additive")
-
 :numref:`fig57` shows the frequency distribution of a numeric continuous
 variable and the distribution before and after noise addition with
 different levels of noise (0.1, 0.5, 1, 2 and 5). The first plot shows
@@ -1371,47 +1350,6 @@ of the original data :math:`\Sigma_{X}:`
 
 .. math:: \Sigma_{\varepsilon} = \alpha \Sigma_{X}
 
-In the addNoise() function of the *sdcMicro* package, correlated noise
-addition can be used by specifying the methods ‘correlated’ or
-‘correlated2’. The method “correlated” assumes that the variables are
-approximately normally distributed. The method ‘correlated2’ is a
-version of the method ‘correlated’, which is robust against the
-normality assumption. :numref:`code520` shows how to use the ‘correlated2’
-method. The normality of variables can be investigated in *R*, with, for
-instance, a Jarque-Bera or Shapiro-Wilk test [#foot53]_.
-
-.. code-block:: R
-   :linenos:
-   :caption: Correlated noise addition
-   :name: code520
-
-   sdcInitial <- addNoise(obj = sdcInitial, 
-                          variables = c('TOTFOOD', 'TOTHLTH', 'TOTALCH', 
-                                        'TOTCLTH', 'TOTHOUS', 'TOTFURN', 
-                                        'TOTTRSP', 'TOTCMNQ', 'TOTRCRE', 
-                                        'TOTEDUC', 'TOTHOTL', 'TOTMISC'), 
-                          noise = 0.5, method = "correlated2")
-
-In many cases, only the outliers have to be protected, or have to be
-protected more. The method ‘outdect’ adds noise only to the outliers,
-which is illustrated in :numref:`code521`. The outliers are identified with
-univariate and robust multivariate procedures based on a robust
-Mahalanobis distance calculated by the MCD estimator (`TMKC14`_). 
-Nevertheless, noise addition is not the most suitable method for
-outlier protection.
-
-.. code-block:: R
-   :linenos:
-   :caption: Noise addition for outliers using the ‘outdect’ method
-   :name: code521
-
-   sdcInitial <- addNoise(obj = sdcInitial, 
-                          variables = c('TOTFOOD', 'TOTHLTH', 'TOTALCH', 
-                                        'TOTCLTH', 'TOTHOUS', 'TOTFURN', 
-                                        'TOTTRSP', 'TOTCMNQ', 'TOTRCRE', 
-                                        'TOTEDUC', 'TOTHOTL', 'TOTMISC'), 
-                          noise = 0.5, method = "outdect")
-
 If noise addition is applied to variables that are a ratio of an
 aggregate, this structure can be destroyed by noise addition. Examples
 are income and expenditure data with many income and expenditure
@@ -1421,32 +1359,10 @@ components. After adding noise to their components (e.g., different
 expenditure categories), however, their new aggregates will not
 necessarily match the sum of the categories anymore. One way to keep
 this structure is to add noise only to the aggregates and release the
-components as ratio of the perturbed aggregates. :numref:`code522`
-illustrates this by adding noise to the total of expenditures.
+components as ratio of the perturbed aggregates.
 Subsequently, the ratios of the initial expenditure categories are used
 for each individual to reconstruct the perturbed values for each
 expenditure category.
-
-.. code-block:: R
-   :linenos:
-   :caption: Noise addition to aggregates and their components
-   :name: code522
-
-    # Add noise to totals (income / expenditures)
-    sdcInital <- addNoise(noise = 0.5, obj = sdcInitial, variables=c("EXP", "INC"), 
-                          method="additive")
-                          
-    # Multiply anonymized totals with ratios to obtain anonymized components
-    compExp <-  c("TOTFOOD",  "TOTALCH",  "TOTCLTH",  "TOTHOUS",  "TOTFURN",  
-                  "TOTHLTH",  "TOTTRSP",  "TOTCMNQ", "TOTRCRE",  "TOTEDUC",  
-                  "TOTHOTL",  "TOTMISC")
-
-    sdcInital@manipNumVars[,compExp] <- sdcInital@manipNumVars[,"HHEXP_N"] *
-     				sdcInital@origData[,compExp]/ sdcInital@origData[,"HHEXP_N"]
-
-    # Recalculate risks after manually changing values in sdcMicro object
-    sdcInitial <- calcRisks(sdcInital)
-
 
 .. admonition:: Recommended Reading Material on Noise Addition
 
@@ -1494,44 +1410,11 @@ suitable method.
 If rank swapping is applied to several variables simultaneously, the
 correlation structure between the variables is preserved. Therefore, it
 is important to check whether the correlation structure in the data is
-plausible. Rank swapping is implemented in the function rankSwap() in
-*sdcMicro*. The variables, which have to be swapped, should be specified
-in the argument ‘variables’. By default, values below the 5\ :sup:`th`
-percentile and above the 95\ :sup:`th` percentile are top and bottom
-coded and replaced by their average value (see the Section 
-`Top and bottom coding <anon_methods.html#Top and bottom coding>`__
-). By specifying the options ‘TopPercent’ and
-‘BottomPercent’ we can choose these percentiles. The argument ‘P’
-defines the size of the neighborhood as percentage of the sample size.
-If the value ‘p’ is 0.05, the neighborhood will be of size 0.05 \*
-:math:`n`, where :math:`n` is the sample size. Since rank swapping is a
+plausible. Since rank swapping is a
 probabilistic method, i.e., the swapping depends on a random number
 generating mechanism, specifying a seed for the random number generator
 before using rank swapping is recommended to guarantee reproducibility
-of results. The seed can also be specified as a function argument in the
-function rankSwap(). :numref:`code523` shows how to apply rank swapping with
-*sdcMicro*. If the variables contain missing values (NA in *R*), the
-function rankSwap() will automatically recode those to the value
-specified in the ‘missing’ argument. This value should not be in the
-value range of any of the variables. After using the function
-rankSwap(), these values should be recoded NA. This is shown in the
-:numref:`code523`.
-
-.. code-block:: R
-   :linenos:
-   :caption: Rank swapping using *sdcMicro*
-   :name: code523
-
-    # Check correlation structure between the variables
-    cor(file$TOTHOUS, file$TOTFOOD)
-    ## [1] 0.3811335
-
-    # Set seed for random number generator
-    set.seed(12345)
-
-    # Apply rank swapping
-    rankSwap(sdcInitial, variables = c("TOTHOUS", "TOTFOOD"), missing = NA)
-
+of results. 
 
 Rank swapping has been found to yield good results with respect to the
 trade-off between information loss and data protection (`DoTo01a`_). 
@@ -1606,34 +1489,11 @@ this example.
      10      2,643           8            2,358.29          3              2,312    
    ====  ===============  =============  ===============  =============  =================  
 
-The method ‘ds’ (the default method of data shuffling in *sdcMicro*) is
-recommended for use (`TeMK14`_) [#foot54]_. A
-regression function with regressors for the variables to be protected
-must be specified in the argument ‘form’. At least two regressands
-should be specified and the regressors should have predictive power for
+The suitability of shuffing depends on the predictive power of the regressors for
 the variables to be predicted. This can be checked with goodness-of-fit
 measures such as the :math:`R^{2}` of the regression. The :math:`R^{2}`
 captures only linear relations, but these are also the only relations
 that are captured by the linear regression model used for shuffling.
-Following is an example for shuffling expenditure variables, which are
-predicted by total household expenditures and household size.
-
-.. code-block:: R
-   :linenos:
-   :caption: Shuffling using a specified regression equation
-   :name: code524
-
-    # Evaluate R-squared (goodness-of-fit) of the regression model
-    summary(lm(file, form = TOTFOOD  + TOTALCH + TOTCLTH + TOTHOUS + 
-                            TOTFURN + TOTHLTH  + TOTTRSP + TOTCMNQ + 
-                            TOTRCRE + TOTEDUC + TOTHOTL + TOTMISC ~ EXP + HHSIZE))
-
-    # Shuffling using the specified regression equation
-    sdcInitial <- shuffle(sdcInitial, method='ds', 
-                          form = TOTFOOD  + TOTALCH + TOTCLTH + TOTHOUS + 
-                                 TOTFURN + TOTHLTH  + TOTTRSP + TOTCMNQ + 
-                                 TOTRCRE + TOTEDUC + TOTHOTL + TOTMISC ~ EXP + HHSIZE)
-
 
 .. admonition:: Recommended Reading Material on Shuffling
 
@@ -1750,19 +1610,6 @@ few examples are:
 	Both files have been anonymized by using data swapping, top coding, perturbation and reducing
 	detail by recoding. [#foot57]_
 
-.. [#foot35]
-   Here the *sdcMicro* object “sdcIntial“ contains a dataset with 2,500
-   individuals and 103 variables. We selected five quasi-identifiers:
-   “sizeRes”, “age”, “gender”, “region”, and “ethnicity”.
-
-.. [#foot36]
-   This approach works only for semi-continuous variables, because in
-   the case of continuous variables, there might be values that are
-   between the lower interval boundary and the lower interval boundary
-   minus the small number. For example, using this for income, we would
-   have an interval (9999, 19999] and the value 9999.5 would be
-   misclassified as belonging to the interval [10000, 19999].
-
 .. [#foot40]
    This can be assessed with utility measures.
 
@@ -1772,22 +1619,6 @@ few examples are:
 .. [#foot42]
    The 5,045 is the expectation computed as 5,000 \* 1 + 500 \* 0.05 +
    400 \* 0.05.
-
-.. [#foot44]
-   In this example and the following examples in this section, the
-   *sdcMicro* object “sdcIntial“ contains a dataset with 2,000
-   individuals and 39 variables. We selected five categorical
-   quasi-identifiers and 9 variables for PRAM: “ROOF”, “TOILET”,
-   “WATER”, “ELECTCON”, “FUELCOOK”, “OWNMOTORCYCLE”, “CAR”, “TV”, and
-   “LIVESTOCK”. These PRAM variabels were selected according to the
-   requirements of this particular dataset and for illustrative
-   purposes.
-
-.. [#foot45]
-   The PRAM method in *sdcMicro* sometimes produces the following
-   error: Error in factor(xpramed, labels = lev) : invalid 'labels';
-   length 6 should be 1 or 5. Under some circumstances, changing the
-   seed can solve this error.
 
 .. [#foot46]
    This can also be achieved with multidimensional transition matrices.
@@ -1806,13 +1637,6 @@ few examples are:
    individuals in a group). In practice, the search for homogeneous
    groups is simplified by imposing equal group sizes for all groups.
 
-.. [#foot49]
-   In this example and the following examples in this section, the
-   *sdcMicro* object “sdcIntial“ contains a dataset with 2,000
-   individuals and 39 variables. We selected five categorical
-   quasi-identifiers and three continuous quasi-identifiers: “INC”,
-   “EXP” and “WEALTH”.
-
 .. [#foot50]
    Also the homogeneity in the groups will be generally lower, leading
    to larger changes, higher protection, but also more information loss,
@@ -1820,31 +1644,7 @@ few examples are:
    variable.
 
 .. [#foot51]
-   Common values for :math:`\alpha` are between 0.5 and 2. The default
-   value in the *sdcMicro* function addNoise() is 150, which is too
-   large for most datasets; the level of noise should be set in the
-   argument ‘noise’.
-
-.. [#foot52]
-   In this example and the following examples in this section, the
-   *sdcMicro* object “sdcIntial“ contains a dataset with 2,000
-   individuals and 39 variables. We selected five categorical
-   quasi-identifiers and 12 continuous quasi-identifiers. These are the
-   expenditure components “TFOODEXP”, “TALCHEXP”, “TCLTHEXP”,
-   “THOUSEXP”, “TFURNEXP”, “THLTHEXP”, “TTRANSEXP”, “TCOMMEXP”,
-   “TRECEXP”, “TEDUEXP”, “TRESTHOTEXP”, “TMISCEXP“.
-
-.. [#foot53]
-   The Shapiro-Wilk test is implemented in the function shapiro.test()
-   from the package *stats* in *R*. The Jarque-Bera test has several
-   implementations in *R*, for example, in the function
-   jarque.bera.test() from the package *tseries*.
-
-.. [#foot54]
-   In *sdcMicro*, there are several other methods for shuffling
-   implemented, including ‘ds’, ‘mvn’ and ‘mlm’. See the Help option for
-   the shuffle function in *sdcMicro* for details on methods ‘ds’, ‘mvm’
-   and ‘mlm’.
+   Common values for :math:`\alpha` are between 0.5 and 2.
 
 .. [#foot55]
    Even if the dataset does not contain an explicit variable with
