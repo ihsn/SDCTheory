@@ -13,12 +13,7 @@ Statistical Disclosure Control for Microdata: A Theory Guide
    anon_methods
    utility
    process
+   case_studies
    appendices
    acknowledgements
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Case studies
-   
-   case_studies
-  
