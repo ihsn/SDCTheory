@@ -23,7 +23,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'SDC Practice Guide'
+project = 'SDC Theory Guide'
 copyright = '2019, International Household Survey Network'
 author = 'Thijs Benschop, Matthew Welch'
 
@@ -115,7 +115,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'SDCPracticeGuide'
+htmlhelp_basename = 'SDCTheoryGuide'
 
 
 def setup(app):
@@ -147,7 +147,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'SDCPracticeGuide.tex', 'Statistical Disclosure Control: A Practice Guide',
+    (master_doc, 'SDCTheoryGuide.tex', 'Statistical Disclosure Control: A Theory Guide',
      'Thijs Benschop, Cathrine Machingauta, Matthew Welch', 'manual'),
 ]
 
@@ -157,7 +157,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'SDCPracticeGuide', 'Statistical Disclosure Control: A Practice Guide',
+    (master_doc, 'SDCTheoryGuide', 'Statistical Disclosure Control: A Theory Guide',
      [author], 1)
 ]
 
@@ -168,7 +168,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'SDCPracticeGuide', 'Statistical Disclosure Control: A Practice Guide',
+    (master_doc, 'SDCTheoryGuide', 'Statistical Disclosure Control: A Theory Guide',
      author, 'Readthedocs', 'One line description of project.',
      'Miscellaneous'),
 ]
