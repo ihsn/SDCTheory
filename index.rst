@@ -10,9 +10,17 @@ accompanied by two guides on the technical implementation for completing
 the SDC process using the *R* package *sdcMicro*. Both guides are
 available as Read the Docs documentations: 
 
-(i) `Statistical Disclosure Control for Microdata: A Practice Guide <https://sdcpractice.readthedocs.io/en/latest/>`__ for using *sdcMicro* from command-line
+(i) |sdcpractice| for using *sdcMicro* from command-line
 
-(ii) `sdcApp manual <https://sdcappdocs.readthedocs.io/en/latest/>`__ for using the GUI *sdcApp* for *sdcMicro*
+(ii) |sdcappdocs| for using the GUI *sdcApp* for *sdcMicro*
+
+.. |sdcpractice| raw:: html
+
+   <a href="https://sdcpractice.readthedocs.io/en/latest/" target="_blank">Statistical Disclosure Control for Microdata: A Practice Guide</a>
+
+.. |sdcappdocs| raw:: html
+
+   <a href="https://sdcappdocs.readthedocs.io/en/latest/" target="_blank">sdcApp manual</a>
 
 **Authors of this guide:** Thijs Benschop and Matthew Welch, The World Bank
 

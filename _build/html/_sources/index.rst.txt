@@ -14,6 +14,18 @@ available as Read the Docs documentations:
 
 (ii) `sdcApp manual <https://sdcappdocs.readthedocs.io/en/latest/>`__ for using the GUI *sdcApp* for *sdcMicro*
 
+(i) |sdcpractice| for using *sdcMicro* from command-line
+
+(ii) |sdcappdocs| for using the GUI *sdcApp* for *sdcMicro*
+
+.. |sdcpractice| raw:: html
+
+   <a href="https://sdcpractice.readthedocs.io/en/latest/" target="_blank">Statistical Disclosure Control for Microdata: A Practice Guide</a>
+
+.. |sdcappdocs| raw:: html
+
+   <a href="https://sdcappdocs.readthedocs.io/en/latest/" target="_blank">sdcApp manual</a>
+
 **Authors of this guide:** Thijs Benschop and Matthew Welch, The World Bank
 
 **Acknowledgments:** The authors thank Olivier Dupriez and Cathrine Machingauta (The World Bank) 
