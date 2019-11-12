@@ -7,9 +7,9 @@ a step-by-step overview of the complete SDC process and many examples from pract
 
 For guidance on the technical implementation of the theory mentioned in the guide, please refer to our guides:
 
-(i) |sdcpractice| for guidence on the application of methods and on using *sdcMicro* from the command-line
+(i) |sdcpractice| for guidance on the application of methods and on using *sdcMicro* from the command-line
 
-(ii) |sdcappdocs| for guidence on the application of methods and on using the GUI *sdcApp* available for *sdcMicro*
+(ii) |sdcappdocs| for guidance on the application of methods and on using the GUI *sdcApp* available for *sdcMicro*
 
 .. |sdcpractice| raw:: html
 
