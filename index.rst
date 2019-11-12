@@ -1,18 +1,15 @@
-Statistical Disclosure Control for Microdata: A Theory Guide
+Statistical Disclosure Control for Microdata: Theory
 ===========================================================================
 
 This guide provides and introduction to the theory of Statistical Disclosure Control
-(SDC) for microdata including an overview of most commonly applied methods in SDC,
-a step-by-step overview of the complete SDC process and many examples from practice in NSOs.
+(SDC) for microdata. it includes an overview of most commonly applied methods in SDC,
+a step-by-step overview of the complete SDC process and many examples from practice in National Statistics Offices (NSOs).
 
-For guidance on the technical implementation of the methods, this guide is 
-accompanied by two guides on the technical implementation for completing
-the SDC process using the *R* package *sdcMicro*. Both guides are
-available as Read the Docs documentations: 
+For guidance on the technical implementation of the theory mentioned in the guide, please refer to our guides:
 
-(i) |sdcpractice| for using *sdcMicro* from command-line
+(i) |sdcpractice| for guidence on the application of methods and on using *sdcMicro* from the command-line
 
-(ii) |sdcappdocs| for using the GUI *sdcApp* for *sdcMicro*
+(ii) |sdcappdocs| for guidence on the application of methods and on using using the GUI *sdcApp* available in for *sdcMicro*
 
 .. |sdcpractice| raw:: html
 
