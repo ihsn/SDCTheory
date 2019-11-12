@@ -2,7 +2,7 @@ Statistical Disclosure Control for Microdata: Theory
 ===========================================================================
 
 This guide provides and introduction to the theory of Statistical Disclosure Control
-(SDC) for microdata. It includes an overview of most commonly applied methods in SDC,
+(SDC) for microdata. It includes an overview of the most commonly applied methods in SDC,
 a step-by-step overview of the complete SDC process and many examples from practice in National Statistics Offices (NSOs).
 
 For guidance on the technical implementation of the theory mentioned in the guide, please refer to our guides:
