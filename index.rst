@@ -9,7 +9,7 @@ For guidance on the technical implementation of the theory mentioned in the guid
 
 (i) |sdcpractice| for guidence on the application of methods and on using *sdcMicro* from the command-line
 
-(ii) |sdcappdocs| for guidence on the application of methods and on using using the GUI *sdcApp* available for *sdcMicro*
+(ii) |sdcappdocs| for guidence on the application of methods and on using the GUI *sdcApp* available for *sdcMicro*
 
 .. |sdcpractice| raw:: html
 
