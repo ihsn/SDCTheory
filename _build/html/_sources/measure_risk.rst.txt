@@ -474,8 +474,8 @@ which is
 where :math:`I` is the indicator function and :math:`i` refers to the
 :math:`i`\ :sup:`th` record. This is simply a count of the number of
 individuals with a sample frequency of their key lower than :math:`k`.
-The count is higher for larger :math:`k`, since if a record satisfies
-:math:`k`-anonymity, it also satisfies :math:`(k + 1)`-anonymity. The
+The count is higher for larger :math:`k`, since if a record violates
+:math:`k`-anonymity, it also violates :math:`(k + 1)`-anonymity. The
 risk measure :math:`k`-anonymity does not consider the sample weights,
 but it is important to consider the sample weights when determining the
 required level of :math:`k`-anonymity. If the sample weights are large,

@@ -1,46 +1,206 @@
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="utf-8" />
-    <title>Case Studies (Illustrating the SDC Process) &#8212; SDC Theory Guide  documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/theme_overrides.css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Case Studies (Illustrating the SDC Process) &mdash; SDC Theory Guide  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Appendices" href="appendices.html" />
     <link rel="prev" title="The SDC Process" href="process.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="appendices.html" title="Appendices"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="process.html" title="The SDC Process"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">SDC Theory Guide  documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+</head>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SDC Theory Guide
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Content</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary_acr.html">Glossary and list of acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SDC_intro.html">Statistical Disclosure Control (SDC): An Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_types.html">Release Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measure_risk.html">Measuring Risk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anon_methods.html">Anonymization Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility.html">Measuring Utility and Information Loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">The SDC Process</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Case Studies (Illustrating the SDC Process)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-1-suf">Case study 1- SUF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-need-for-disclosure-control">Step 1: Need for disclosure control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-data-preparation-and-exploring-data-characteristics">Step 2: Data preparation and exploring data characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-type-of-release">Step 3: Type of release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-intruder-scenarios-and-choice-of-key-variables">Step 4: Intruder scenarios and choice of key variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-data-key-uses-and-selection-of-utility-measures">Step 5: Data key uses and selection of utility measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-household-structure">Hierarchical (household) structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6a-assessing-disclosure-risk-household-level">Step 6a: Assessing disclosure risk (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-7a-assessing-utility-measures-household-level">Step 7a: Assessing utility measures (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-8a-choice-and-application-of-sdc-methods-household-variables">Step 8a: Choice and application of SDC methods (household variables)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9a-re-measure-risk">Step 9a: Re-measure risk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-10a-re-measure-utility">Step 10a: Re-measure utility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6b-assessing-disclosure-risk-individual-level">Step 6b: Assessing disclosure risk (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-7b-assessing-utility-individual-level">Step 7b: Assessing utility (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-8b-choice-and-application-of-sdc-methods-individual-level">Step 8b: Choice and application of SDC methods (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9b-re-measure-risk-individual-level">Step 9b: Re-measure risk (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-10b-re-measure-utility-individual-level">Step 10b: Re-measure utility (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-11-audit-and-reporting">Step 11: Audit and reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-12-data-release">Step 12: Data release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-2-puf">Case study 2 - PUF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Step 1: Need for disclosure control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Step 2: Data preparation and exploring data characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Step 3: Type of release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Step 4: Intruder scenarios and choice of key variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Step 5: Data key uses and selection of utility measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Step 6a: Assessing disclosure risk (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Step 7a: Assessing utility measures (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-8a-choice-and-application-of-sdc-methods-household-level">Step 8a: Choice and application of SDC methods (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9a-re-measure-risk-household-level">Step 9a: Re-measure risk (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-10a-re-measure-utility-household-level">Step 10a Re-measure utility (household level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Step 6b: Assessing disclosure risk (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-7b-assessing-utility-measures-individual-level">Step 7b: Assessing utility measures (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Step 8b: Choice and application of SDC methods (individual level)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-9b-re-measure-risk">Step 9b: Re-measure risk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-10b-re-measure-utility">Step 10b: Re-measure utility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Step 11: Audit and reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Step 12: Data release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendices.html">Appendices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SDC Theory Guide</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Case Studies (Illustrating the SDC Process)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/case_studies.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="case-studies-illustrating-the-sdc-process">
 <h1>Case Studies (Illustrating the SDC Process)<a class="headerlink" href="#case-studies-illustrating-the-sdc-process" title="Permalink to this headline">¶</a></h1>
@@ -5560,104 +5720,52 @@ packages <em>laeken, reldist, bootstrap</em> and <em>ineq</em>.</p>
 </div>
 
 
+           </div>
+           
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Case Studies (Illustrating the SDC Process)</a><ul>
-<li><a class="reference internal" href="#case-study-1-suf">Case study 1- SUF</a><ul>
-<li><a class="reference internal" href="#step-1-need-for-disclosure-control">Step 1: Need for disclosure control</a></li>
-<li><a class="reference internal" href="#step-2-data-preparation-and-exploring-data-characteristics">Step 2: Data preparation and exploring data characteristics</a></li>
-<li><a class="reference internal" href="#step-3-type-of-release">Step 3: Type of release</a></li>
-<li><a class="reference internal" href="#step-4-intruder-scenarios-and-choice-of-key-variables">Step 4: Intruder scenarios and choice of key variables</a></li>
-<li><a class="reference internal" href="#step-5-data-key-uses-and-selection-of-utility-measures">Step 5: Data key uses and selection of utility measures</a></li>
-<li><a class="reference internal" href="#hierarchical-household-structure">Hierarchical (household) structure</a></li>
-<li><a class="reference internal" href="#step-6a-assessing-disclosure-risk-household-level">Step 6a: Assessing disclosure risk (household level)</a></li>
-<li><a class="reference internal" href="#step-7a-assessing-utility-measures-household-level">Step 7a: Assessing utility measures (household level)</a></li>
-<li><a class="reference internal" href="#step-8a-choice-and-application-of-sdc-methods-household-variables">Step 8a: Choice and application of SDC methods (household variables)</a></li>
-<li><a class="reference internal" href="#step-9a-re-measure-risk">Step 9a: Re-measure risk</a></li>
-<li><a class="reference internal" href="#step-10a-re-measure-utility">Step 10a: Re-measure utility</a></li>
-<li><a class="reference internal" href="#step-6b-assessing-disclosure-risk-individual-level">Step 6b: Assessing disclosure risk (individual level)</a></li>
-<li><a class="reference internal" href="#step-7b-assessing-utility-individual-level">Step 7b: Assessing utility (individual level)</a></li>
-<li><a class="reference internal" href="#step-8b-choice-and-application-of-sdc-methods-individual-level">Step 8b: Choice and application of SDC methods (individual level)</a></li>
-<li><a class="reference internal" href="#step-9b-re-measure-risk-individual-level">Step 9b: Re-measure risk (individual level)</a></li>
-<li><a class="reference internal" href="#step-10b-re-measure-utility-individual-level">Step 10b: Re-measure utility (individual level)</a></li>
-<li><a class="reference internal" href="#step-11-audit-and-reporting">Step 11: Audit and reporting</a></li>
-<li><a class="reference internal" href="#step-12-data-release">Step 12: Data release</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#case-study-2-puf">Case study 2 - PUF</a><ul>
-<li><a class="reference internal" href="#id4">Step 1: Need for disclosure control</a></li>
-<li><a class="reference internal" href="#id5">Step 2: Data preparation and exploring data characteristics</a></li>
-<li><a class="reference internal" href="#id6">Step 3: Type of release</a></li>
-<li><a class="reference internal" href="#id7">Step 4: Intruder scenarios and choice of key variables</a></li>
-<li><a class="reference internal" href="#id8">Step 5: Data key uses and selection of utility measures</a></li>
-<li><a class="reference internal" href="#id9">Step 6a: Assessing disclosure risk (household level)</a></li>
-<li><a class="reference internal" href="#id10">Step 7a: Assessing utility measures (household level)</a></li>
-<li><a class="reference internal" href="#step-8a-choice-and-application-of-sdc-methods-household-level">Step 8a: Choice and application of SDC methods (household level)</a></li>
-<li><a class="reference internal" href="#step-9a-re-measure-risk-household-level">Step 9a: Re-measure risk (household level)</a></li>
-<li><a class="reference internal" href="#step-10a-re-measure-utility-household-level">Step 10a Re-measure utility (household level)</a></li>
-<li><a class="reference internal" href="#id11">Step 6b: Assessing disclosure risk (individual level)</a></li>
-<li><a class="reference internal" href="#step-7b-assessing-utility-measures-individual-level">Step 7b: Assessing utility measures (individual level)</a></li>
-<li><a class="reference internal" href="#id12">Step 8b: Choice and application of SDC methods (individual level)</a></li>
-<li><a class="reference internal" href="#step-9b-re-measure-risk">Step 9b: Re-measure risk</a></li>
-<li><a class="reference internal" href="#step-10b-re-measure-utility">Step 10b: Re-measure utility</a></li>
-<li><a class="reference internal" href="#id13">Step 11: Audit and reporting</a></li>
-<li><a class="reference internal" href="#id14">Step 12: Data release</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="appendices.html" class="btn btn-neutral float-right" title="Appendices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="process.html" class="btn btn-neutral float-left" title="The SDC Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="process.html"
-                        title="previous chapter">The SDC Process</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="appendices.html"
-                        title="next chapter">Appendices</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/case_studies.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, International Household Survey Network
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="appendices.html" title="Appendices"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="process.html" title="The SDC Process"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">SDC Theory Guide  documentation</a> &#187;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, International Household Survey Network.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>
