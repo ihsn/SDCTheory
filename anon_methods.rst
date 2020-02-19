@@ -77,10 +77,10 @@ types of data to which they are applicable.
    =======================  ================================  ============================  
     Method                   Classification of SDC method      Data Type                    
    =======================  ================================  ============================  
-    Global recoding          non-perturbative, determinitic    continuous and categorical   
+    Global recoding          non-perturbative, deterministic    continuous and categorical   
                                                                                             
-    Top and bottom coding    non-perturbative, determinitic    continuous and categorical   
-    Local suppression        non-perturbative, determinitic    categorical                  
+    Top and bottom coding    non-perturbative, deterministic    continuous and categorical   
+    Local suppression        non-perturbative, deterministic    categorical                  
     PRAM                     perturbative, probabilistic       categorical                  
     Micro aggregation        perturbative, probabilistic       continuous                   
     Noise addition           perturbative, probabilistic       continuous                   
